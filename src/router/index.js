@@ -12,11 +12,21 @@ const router = createRouter({
 })
 router.beforeEach(async (to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-    const { data: { session } } = await supabase.auth.getSession();
+    let { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+        await new Promise((resolve) => {
+            const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
+                session = newSession;
+                subscription.unsubscribe();
+                resolve();
+            });
+        });
+    }
     if (requiresAuth && !session) {
         next('/');
     } else {
         next();
     }
-})
+});
+
 export default router
