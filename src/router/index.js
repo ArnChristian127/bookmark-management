@@ -14,12 +14,15 @@ router.beforeEach(async (to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     let { data: { session } } = await supabase.auth.getSession();
     if (!session) {
-        await new Promise((resolve) => {
+        session = await new Promise((resolve) => {
             const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
-                session = newSession;
                 subscription.unsubscribe();
-                resolve();
+                resolve(newSession);
             });
+            setTimeout(() => {
+                subscription.unsubscribe();
+                resolve(null);
+            }, 1000);
         });
     }
     if (requiresAuth && !session) {
@@ -28,5 +31,4 @@ router.beforeEach(async (to, from, next) => {
         next();
     }
 });
-
-export default router
+export default router;
