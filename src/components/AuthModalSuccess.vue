@@ -13,6 +13,9 @@
                 </button>
             </div>
         </div>
+        <div v-for="item in event" :key="item.id">
+            <p>{{ item }}</p>
+        </div>
     </div>
 </template>
 <script setup>

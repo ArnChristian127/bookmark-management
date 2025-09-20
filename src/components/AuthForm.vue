@@ -31,9 +31,7 @@
 <script setup>
     import { CiUser, CiLock, CiMail } from 'vue-icons-plus/ci';
     import { ref, computed } from 'vue';
-    const props = defineProps({
-        isSignUp: Boolean
-    })
+    const props = defineProps({ isSignUp: Boolean })
     const username = ref('');
     const email = ref('');
     const password = ref('');
