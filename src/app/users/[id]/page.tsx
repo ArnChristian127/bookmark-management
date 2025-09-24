@@ -4,9 +4,8 @@ import { FaClipboardList, FaBookmark } from "react-icons/fa";
 import { IoReloadOutline } from "react-icons/io5";
 import { MdFavorite } from "react-icons/md";
 import { DashboardCount } from "@/utils/count/functions";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { MdDashboard } from "react-icons/md";
-import { Auth } from "@/utils/supabase/functions";
 import CardCount from "@/components/CardCount";
 import BarChart from "@/components/BarChart";
 

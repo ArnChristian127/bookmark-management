@@ -5,7 +5,7 @@ export class Auth {
             return 'Username must be at least 3 characters long';
         }
         if (!username) {
-            return 'Username is required';
+            return 'Username is required' as string;
         }
         const supabase = createClient();
         const { data, error: signUpError } = await supabase.auth.signUp({
@@ -19,7 +19,7 @@ export class Auth {
             email,
         });
         if (insertError) return insertError.message;
-        return 'Sign Up Successful';
+        return 'Sign Up Successful' as string;
     }
     static async SignIn(email: string, password: string) {
         const supabase = createClient();
@@ -27,7 +27,7 @@ export class Auth {
             email,
             password,
         });
-        return { data, signInError }
+        return { data, signInError } as any;
     }
     static async AuthGuardSession(router: any) {
         const supabase = createClient();
@@ -37,6 +37,12 @@ export class Auth {
         } else {
             router.push(`/users/${session.user.id}`);
         }
+    }
+    static async GetUser() {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        const { data: userData  } = await supabase.from('users').select('*').eq('id', user?.id).single();
+        return userData as any;
     }
     static async SignOut() {
         const supabase = createClient();
