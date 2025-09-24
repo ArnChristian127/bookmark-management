@@ -37,6 +37,9 @@ export default function Authentication() {
             }
         }
     }
+    useEffect(() => {
+        Auth.AuthGuardSession(router);
+    }, [])
     return (
         <>
             {showModal && (
