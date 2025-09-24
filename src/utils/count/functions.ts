@@ -3,7 +3,8 @@ export class DashboardCount {
     static async getBookmarkCount(id: any) {
         const supabase = createClient();
         const { count } = await supabase.from('bookmarks').select('*', { count: "exact", head: true }).eq('users_id', id);
-        return count as number;
+        console.log(count)
+        return count;
     }
     static async getCategoryCount(id: any) {
         const supabase = createClient();

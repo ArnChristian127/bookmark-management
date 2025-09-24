@@ -54,7 +54,7 @@ export default function Dashboard() {
         <>
             <div>
                 <div className="flex items-center gap-3 flex-wrap">
-                    <h1 className="text-3xl font-semibold">
+                    <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold">
                         Bookmark Dashboard
                     </h1>
                     <MdDashboard className="text-3xl text-green-400" />
