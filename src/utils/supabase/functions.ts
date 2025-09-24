@@ -1,5 +1,4 @@
 import { createClient } from "./client";
-import { useRouter } from "next/navigation";
 export class Auth {
     static async SignUp(username: string, email: string, password: string) {
         if (username.length < 3) {

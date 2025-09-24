@@ -1,7 +1,7 @@
 type InputProps = {
     typeInput: 'standard' | 'withIcon';
     className?: string;
-    icons?: any;
+    icons?: React.ReactNode;
     placeholder: string;
     type: "text" | "password" | "email";
     value: string;

@@ -1,5 +1,5 @@
 type ModalWarningMsgProps = {
-    icons: any;
+    icons: React.ReactNode;
     title: string;
     message: string;
     color: string;
