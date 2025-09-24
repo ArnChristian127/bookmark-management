@@ -1,4 +1,4 @@
-import Input from "./Input"
+import Input from "../input/Input"
 
 type ModalCreateCategoryProps = {
     value: string;
@@ -9,8 +9,8 @@ type ModalCreateCategoryProps = {
 export default function ModalCreateCategory({ value, onChange, onClose, onSubmit }: ModalCreateCategoryProps) {
     return (
         <>
-            <div className="inset-0 fixed bg-black opacity-50 z-50"/>
-            <div className="inset-0 fixed flex items-center justify-center px-3 z-50">
+            <div className="inset-0 fixed bg-black opacity-50 z-60"/>
+            <div className="inset-0 fixed flex items-center justify-center px-3 z-60">
                 <form onSubmit={onSubmit} className="bg-white rounded-lg w-100 p-5 space-y-3">
                     <h1 className="text-lg md:text-xl lg:text-2xl font-semibold">Add Category</h1>
                     <Input

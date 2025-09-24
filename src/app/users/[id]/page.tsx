@@ -6,8 +6,8 @@ import { MdFavorite } from "react-icons/md";
 import { DashboardCount } from "@/utils/count/functions";
 import { useParams } from "next/navigation";
 import { MdDashboard } from "react-icons/md";
-import CardCount from "@/components/CardCount";
-import BarChart from "@/components/BarChart";
+import CardCount from "@/components/cards/CardCount";
+import BarChart from "@/components/charts/BarChart";
 
 export default function Dashboard() {
     const [categoryCount, setCategoryCount] = useState<any>([]);

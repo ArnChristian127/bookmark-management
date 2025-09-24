@@ -1,5 +1,5 @@
 import { CiUser, CiMail, CiLock } from "react-icons/ci";
-import Input from "./Input"
+import Input from "../input/Input";
 
 type AuthFormProps = {
     username: string;

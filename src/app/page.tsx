@@ -3,8 +3,8 @@ import { useRouter } from "next/navigation";
 import { IoIosWarning } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { Auth } from "@/utils/supabase/functions";
-import AuthForm from "@/components/AuthForm";
-import ModalMsg from "@/components/ModalMsg";
+import AuthForm from "@/components/auth/AuthForm";
+import ModalMsg from "@/components/modals/ModalMsg";
 export default function Authentication() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
