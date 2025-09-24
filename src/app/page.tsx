@@ -1,7 +1,8 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { IoIosWarning } from "react-icons/io";
-import { useEffect, useState } from "react";
+import { animate } from "animejs";
 import { Auth } from "@/utils/supabase/functions";
 import AuthForm from "@/components/auth/AuthForm";
 import ModalMsg from "@/components/modals/ModalMsg";
@@ -38,12 +39,21 @@ export default function Authentication() {
         }
     }
     useEffect(() => {
+        animate('.pop-up', {
+            opacity: [0, 1],
+            scale: [0.5, 1],
+            duration: 400,
+            easing: 'easeInOutQuad'
+        })
+    }, [showModal])
+    useEffect(() => {
         Auth.AuthGuardSession(router);
     }, [])
     return (
         <>
             {showModal && (
                 <ModalMsg
+                    className="pop-up"
                     icons={<IoIosWarning className="text-3xl md:text-4xl lg:text-5xl text-red-400"/>}
                     title={isSignUp ? "Sign Up Error" : "Sign In Error"}
                     message={modalMessage}
@@ -67,7 +77,7 @@ export default function Authentication() {
                 </div>
                 <div className="bg-[url('/assets/auth-bg.jpg')] bg-center bg-cover col-span-2" />
             </div>
-            <div className="h-screen lg:hidden bg-red-400 flex items-center justify-center px-3 bg-[url('/assets/auth-bg.jpg')] bg-center bg-cover">
+            <div className="h-screen lg:hidden flex items-center justify-center px-3 bg-[url('/assets/auth-bg.jpg')] bg-center bg-cover">
                 <AuthForm
                     username={username}
                     email={email}

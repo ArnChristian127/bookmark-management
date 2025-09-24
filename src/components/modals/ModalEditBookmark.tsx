@@ -1,6 +1,7 @@
 import Input from "../input/Input"
 
 type ModalCreateBookmarkProps = {
+    className?: string;
     title: string;
     description: string;
     url: string;
@@ -10,12 +11,12 @@ type ModalCreateBookmarkProps = {
     onClose: () => void;
     onSubmit: (e: React.FormEvent) => void;
 }
-export default function ModalEditBookmark({ title, description, url, onChangeTitle, onChangeDescription, onChangeUrl, onClose, onSubmit}: ModalCreateBookmarkProps) {
+export default function ModalEditBookmark({ className, title, description, url, onChangeTitle, onChangeDescription, onChangeUrl, onClose, onSubmit}: ModalCreateBookmarkProps) {
     return (
         <>
             <div className="inset-0 fixed bg-black opacity-50 z-60"/>
             <div className="inset-0 fixed flex items-center justify-center px-3 z-60">
-                <form onSubmit={onSubmit} className="bg-white rounded-lg w-100 p-5 space-y-3">
+                <form onSubmit={onSubmit} className={`bg-white rounded-lg w-100 p-5 space-y-3 ${className}`}>
                     <h1 className="text-lg md:text-xl lg:text-2xl font-semibold">Edit Bookmark</h1>
                     <Input
                         typeInput="standard"

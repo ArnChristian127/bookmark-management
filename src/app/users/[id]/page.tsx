@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState, useMemo } from "react";
 import { FaClipboardList, FaBookmark } from "react-icons/fa";
+import { animate, stagger } from "animejs";
 import { IoReloadOutline } from "react-icons/io5";
 import { MdFavorite } from "react-icons/md";
 import { DashboardCount } from "@/utils/count/functions";
@@ -50,6 +51,15 @@ export default function Dashboard() {
     useEffect(() => {
         reload();
     }, [])
+    useEffect(() => {
+        animate('.stagger-card', {
+            opacity: [0, 1],
+            translateY: [40, 0],
+            delay: stagger(150),
+            duration: 300,
+            easing: 'easeOutQuad',
+        });
+    }, [loading])
     return (
         <>
             <div>
@@ -71,16 +81,19 @@ export default function Dashboard() {
                                 title="Total Categories"
                                 icons={<FaClipboardList className="text-lg md:text-xl lg:text-2xl" />}
                                 count={categoryCount}
+                                className="stagger-card"
                             />
                             <CardCount
                                 title="Total Bookmarks"
                                 icons={<FaBookmark className="text-lg md:text-xl lg:text-2xl" />}
                                 count={bookmarkCount}
+                                className="stagger-card"
                             />
                             <CardCount
                                 title="Favorites"
                                 icons={<MdFavorite className="text-lg md:text-xl lg:text-2xl" />}
                                 count={favoriteCount}
+                                className="stagger-card"
                             />
                         </>
                     ) : (
@@ -98,7 +111,7 @@ export default function Dashboard() {
                     )}
                 </div>
                 {loading ? (
-                    <BarChart className="mt-5" data={myData} />
+                    <BarChart className="mt-5 stagger-card" data={myData} />
                 ): (
                     <div className="animate-pulse mt-5 ">
                         <div className="h-full min-h-[200px] sm:min-h-[300px] md:min-h-[400px] lg:min-h-[500px] bg-gray-300 rounded-lg"></div>

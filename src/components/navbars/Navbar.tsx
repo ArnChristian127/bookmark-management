@@ -6,6 +6,7 @@ import { BsList } from "react-icons/bs";
 import Link from "next/link";
 
 type NavbarProps = {
+    ref?: React.Ref<HTMLDivElement>;
     user: any;
     isNavbarOpen?: boolean;
     id: any;
@@ -17,7 +18,7 @@ type NavbarProps = {
     handleSignOut: () => void;
     setIsNavbarOpen: () => void;
 }
-export default function Navbar({ user, isNavbarOpen, setIsNavbarOpen, id, categories, editCategory, setEditCategory, setOpen, deleteCategory, handleSignOut }: NavbarProps) {
+export default function Navbar({ ref, user, isNavbarOpen, setIsNavbarOpen, id, categories, editCategory, setEditCategory, setOpen, deleteCategory, handleSignOut }: NavbarProps) {
     return (
        <>
             <header className="bg-purple-400 flex items-center justify-between px-4 text-white">
@@ -35,7 +36,7 @@ export default function Navbar({ user, isNavbarOpen, setIsNavbarOpen, id, catego
                 </button>
             </header>
             {isNavbarOpen && (
-                <nav className="fixed top-0 left-0 w-full min-h-screen bg-slate-800 text-white lg:hidden flex flex-col shadow-lg z-50">
+                <nav ref={ref} className="fixed top-0 left-0 w-full min-h-screen bg-slate-800 text-white lg:hidden flex flex-col shadow-lg z-50">
                     <div className="flex justify-between items-center p-3">
                         <h1 className="text-gray-300">Navigations</h1>
                         <button onClick={() => setIsNavbarOpen()} className="text-md">

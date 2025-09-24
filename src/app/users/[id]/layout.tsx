@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Auth } from "@/utils/supabase/functions";
 import { createClient } from "@/utils/supabase/client";
+import { animate } from "animejs";
 import ModalCreateCategory from "@/components/modals/ModalCreateCategory";
 import SideBar from "@/components/navbars/SideBar";
 import Navbar from "@/components/navbars/Navbar";
@@ -14,6 +15,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
     const [categories, setCategories] = useState<any>([]);
     const [user, setUser] = useState<any>(null);
     const [editCategory, setEditCategory] = useState(false);
+    const animeSlideNav = useRef<any>(null);
     const router = useRouter();
     const params = useParams();
     const supabase = createClient();
@@ -49,11 +51,34 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
         router.push(`/users/${id}`);
         fetchCategories();
     }
+    const navbarToggler = () => {
+        if (isNavbarOpen) {
+            animate(animeSlideNav.current, {
+                translateX: [0, '-100%'],
+                opacity: [1, 0],
+                duration: 300,
+                easing: 'easeInOutQuad',
+                onComplete: () => {
+                    setIsNavbarOpen(false);
+                }
+            })
+        } else {
+            setIsNavbarOpen(true);
+        }
+    }
     useEffect(() => {
         Auth.AuthGuardSession(router);
         fetchCategories();
         getUser();
     }, [])
+    useEffect(() => {
+        animate(animeSlideNav.current, {
+            translateX: ['-100%', 0],
+            duration: 300,
+            opacity: [0, 1],
+            easing: 'easeInOutQuad',
+        })
+    }, [isNavbarOpen])
     return (
         <>
             {open && (
@@ -75,9 +100,10 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                     handleSignOut={handleSignOut}
                 />
                 <Navbar
+                    ref={animeSlideNav}
                     user={user}
                     isNavbarOpen={isNavbarOpen}
-                    setIsNavbarOpen={() => setIsNavbarOpen(!isNavbarOpen)}
+                    setIsNavbarOpen={() => navbarToggler()}
                     id={id}
                     categories={categories}
                     editCategory={editCategory}

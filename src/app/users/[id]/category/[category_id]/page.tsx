@@ -1,10 +1,13 @@
 "use client";
 import { useState, useEffect } from "react"
+import { animate, stagger } from "animejs";
 import { useParams } from "next/navigation"
 import { createClient } from "@/utils/supabase/client";
 import CardBookmark from "@/components/cards/CardBookmark";
 import ModalCreateBookmark from "@/components/modals/ModalCreateBookmark";
 import ModalEditBookmark from "@/components/modals/ModalEditBookmark";
+import ModalOption from "@/components/modals/ModalOption";
+
 export default function Bookmarks() {
     const [category, setCategory] = useState<any>(null);
     const [bookmarks, setBookmarks] = useState<any>([]);
@@ -18,9 +21,11 @@ export default function Bookmarks() {
     const [editUrl, setEditUrl] = useState("");
     const [editId, setEditId] = useState("");
     const [editModal, setEditModal] = useState(false);
+    const [optionModal, setOptionModal] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
     const params = useParams();
-    const id = params.category_id;
     const supabase = createClient();
+    const id = params.category_id;
     const placeholder = []
     for (let i = 0; i < 6; i++) {
         placeholder.push(
@@ -73,13 +78,20 @@ export default function Bookmarks() {
         setEditModal(false);
         fetchBookmarks();
     }
-    const deleteBookmark = async (delete_id: string) => {
-        const { error } = await supabase.from('bookmarks').delete().eq('id', delete_id);
-        if (!error) {
-            fetchBookmarks();
-        } else {
-            console.log(error);
+    const closeOptionModal = (data: any) => {
+        setOptionModal(true);
+        setDeleteId(data.id);
+    }
+    const deleteBookmark = async () => {
+        if (deleteId) {
+            const { error } = await supabase.from('bookmarks').delete().eq('id', deleteId);
+            if (!error) {
+                fetchBookmarks();
+            } else {
+                console.log(error);
+            }
         }
+        setOptionModal(false);
     }
     const refresh = async () => {
         fetchCategory();
@@ -92,10 +104,36 @@ export default function Bookmarks() {
     useEffect(() => {
         refresh();
     }, [])
+    useEffect(() => {
+        animate('.stagger-card', {
+            opacity: [0, 1],
+            translateY: [40, 0],
+            delay: stagger(150),
+            duration: 300,
+            easing: 'easeOutQuad',
+        });
+    }, [loading])
+    useEffect(() => {
+        animate('.pop-up', {
+            opacity: [0, 1],
+            scale: [0.5, 1],
+            duration: 300,
+            easing: 'easeInOutQuad'
+        })
+    }, [editModal, open, optionModal])
     return (
         <>
+            {optionModal && (
+                <ModalOption
+                    className="pop-up"
+                    title="Are you sure you want to delete this bookmark?"
+                    onClose={() => setOptionModal(false)}
+                    onDelete={() => deleteBookmark()}
+                />
+            )}
             {open && (
                 <ModalCreateBookmark
+                    className="pop-up"
                     onClose={() => setOpen(false)}
                     title={title}
                     description={description}
@@ -108,6 +146,7 @@ export default function Bookmarks() {
             )}
             {editModal && (
                 <ModalEditBookmark
+                    className="pop-up"
                     onClose={() => setEditModal(false)}
                     title={editTitle}
                     description={editDescription}
@@ -132,12 +171,13 @@ export default function Bookmarks() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
                         {bookmarks?.map((bookmark: any) => (
                             <CardBookmark
+                                className="stagger-card"
                                 key={bookmark.id}
                                 title={bookmark.title}
                                 description={bookmark.description}
                                 url={bookmark.link}
                                 editBookmark={() => editBookmark(bookmark)}
-                                deleteBookmark={() => deleteBookmark(bookmark.id)}
+                                deleteBookmark={() => closeOptionModal(bookmark)}
                             />
                         ))}
                     </div>
