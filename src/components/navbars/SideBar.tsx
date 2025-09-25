@@ -1,3 +1,5 @@
+//coded by Arn Christian
+//Component SideBar
 import Link from "next/link";
 import { FiPlus } from "react-icons/fi";
 import { CiEdit, CiLogout } from "react-icons/ci";

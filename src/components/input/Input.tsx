@@ -1,14 +1,20 @@
+//coded by Arn Christian
+//Component Input
+//dynamic component for input
+// Define the props for the Input component
 type InputProps = {
-    typeInput: 'standard' | 'withIcon' | 'textarea';
-    className?: string;
-    icons?: React.ReactNode;
-    placeholder: string;
-    type: "text" | "password" | "email";
-    value: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onChangeTextArea?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    typeInput: 'standard' | 'withIcon' | 'textarea'; // Type of input to render
+    className?: string; // Optional additional CSS classes for styling
+    icons?: React.ReactNode; // Optional icon(s) to display (for withIcon type)
+    placeholder: string; // Placeholder text for the input/textarea
+    type: "text" | "password" | "email"; // Input type for standard and withIcon
+    value: string; // Value of the input/textarea
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Change handler for input
+    onChangeTextArea?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void; // Change handler for textarea
 }
+// Input component renders different input styles based on typeInput prop
 export default function Input({ typeInput, className, icons, placeholder, type, value, onChange, onChangeTextArea }: InputProps) {
+    // Render input with icon if typeInput is 'withIcon'
     if (typeInput === 'withIcon') {
         return (
             <div className={`flex items-center gap-3 p-3 rounded-lg border border-gray-300 ${className}`}>
@@ -23,6 +29,7 @@ export default function Input({ typeInput, className, icons, placeholder, type, 
             </div>
         )
     }
+    // Render standard input if typeInput is 'standard'
     else if (typeInput === 'standard') {
         return (
             <input
@@ -34,6 +41,7 @@ export default function Input({ typeInput, className, icons, placeholder, type, 
             />
         )
     }
+    // Render textarea if typeInput is 'textarea'
     else if (typeInput === 'textarea') {  
         return (
             <textarea
@@ -44,5 +52,6 @@ export default function Input({ typeInput, className, icons, placeholder, type, 
             />
         )
     }
+    // Return null if typeInput does not match any known type
     return null;
 }

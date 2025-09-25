@@ -1,3 +1,5 @@
+//coded by Arn Christian
+//Component ModalMsg
 type ModalWarningMsgProps = {
     className: string;
     icons: React.ReactNode;

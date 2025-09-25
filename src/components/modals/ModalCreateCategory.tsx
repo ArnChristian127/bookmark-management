@@ -1,5 +1,6 @@
+//coded by Arn Christian
+//Component ModalCreateCategory
 import Input from "../input/Input"
-
 type ModalCreateCategoryProps = {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

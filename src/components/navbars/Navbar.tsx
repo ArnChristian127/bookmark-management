@@ -1,3 +1,5 @@
+//coded by Arn Christian
+//Component Navbar
 import { CiLogout, CiEdit } from "react-icons/ci";
 import { MdDashboard } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";

@@ -1,3 +1,5 @@
+//coded by Arn Christian
+//Component ModalOption
 import { IoIosWarning } from "react-icons/io";
 type ModalOptionProps = {
     className?: string;
