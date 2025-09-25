@@ -31,13 +31,13 @@ export default function Bookmark({ isFavorite, setFavorite, className, title, de
                 <hr className="my-3 border-t border-gray-300" />
                 {/* Favorite button toggles heart icon and status */}
                 <button onClick={setFavorite} className="flex items-center gap-2 cursor-pointer">
-                    {isFavorite ? <FaRegHeart /> : <FaHeart className="text-red-400"/>}
+                    {isFavorite ? <FaHeart className="text-red-400" /> : <FaRegHeart />}
                     <span>Add to Favorites</span>
                 </button>
                 {/* Edit and Delete buttons; Delete only shown if favorite */}
                 <div className="flex justify-between items-center mt-3 gap-5">
                     <button onClick={editBookmark} className="bg-green-400 hover:bg-green-500 focus:bg-green-500 text-white w-full rounded-lg py-2">Edit</button>
-                    {isFavorite && (<button onClick={deleteBookmark} className="bg-red-400 hover:bg-red-500 focus:bg-red-500 text-white w-full rounded-lg py-2">Delete</button>)}
+                    {!isFavorite && (<button onClick={deleteBookmark} className="bg-red-400 hover:bg-red-500 focus:bg-red-500 text-white w-full rounded-lg py-2">Delete</button>)}
                 </div>
             </div>
         </>
